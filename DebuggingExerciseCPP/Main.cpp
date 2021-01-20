@@ -1,5 +1,6 @@
 #include "Player.h"
 #include <iostream>
+#include "Enemy.h"
 
 /// <summary>
 /// Prints a menu with the given options to the screen.
@@ -66,7 +67,7 @@ void printCharacterStats(Character* character)
 int startPlayerBattle(Player* player, Character* enemy)
 {
 	//Loop while both the enemy and player are alive.
-	while (player->getHealth > 0 && enemy->getHealth > 0)
+	while (player->getHealth() > 0 && enemy->getHealth() > 0)
 	{
 		system("cls");
 
@@ -86,7 +87,7 @@ int startPlayerBattle(Player* player, Character* enemy)
 			return 2;
 
 		//Enemy attack.
-		std::cout << enemy->getName << " did: " << enemy->attack(player) << " damage!" << std::endl;
+		std::cout << enemy->getName() << " did: " << enemy->attack(player) << " damage!" << std::endl;
 		system("pause");
 	}
 
@@ -105,10 +106,10 @@ int main()
 
 	//Gets player weapon choice and equips the choosen weapon.
 	int choice = printOptions("Pick an Item: ", "Sword", "Shield");
-	if (choice = 1)
-		player.equipWeapon(Item(10));
+	if (choice == 1)
+		player->equipWeapon(Item(10));
 	else if (choice == 2)
-		player.equipShield(Item(10));
+		player->equipShield(Item(10));
 
 	//Initialize new enemy.
 	Enemy* enemy = new Enemy("Monster", 50, 10, 5);
@@ -121,10 +122,13 @@ int main()
 	{
 	case 0:
 		std::cout << "You Lose!!" << std::endl;
+		break;
 	case 1:
 		std::cout << "You Win!!" << std::endl;
+		break;
 	case 2:
 		std::cout << "You Escaped....." << std::endl;
+		break;
 	}
 	system("pause");
 }
